@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.bitcoinj:bitcoinj-core:0.14.4@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bitcoinj/bitcoinj-core/0.14.4/d8693bc4f37491616c2779b622dc32a10e3b55b3/bitcoinj-core-0.14.4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bitcoinj/bitcoinj-core/0.14.4/881f89ddb05a68e146ec3c1f68b4ed6f19f3cb67/bitcoinj-core-0.14.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bitcoinj/bitcoinj-core/0.14.4/9ebeeea11d58a8af3494a286c9dc053ce87b6c42/bitcoinj-core-0.14.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

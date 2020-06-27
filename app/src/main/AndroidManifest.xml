@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fastcon.etherapp">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".EtherApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.transaction_details.BitcoinTransactionDetails"></activity>
+        <activity android:name=".ui.transaction_details.EthereumTransactionDetails" />
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name=".ui.registration.RegistrationActivity" />
+        <activity android:name=".ui.transaction.EthereumTransactionActivity" />
+        <activity android:name=".ui.transaction.BitcoinTransactionActivity" />
+        <activity android:name=".ui.news_details.NewsDetailsActivity" />
+        <activity android:name=".ui.traded_volume_details.TradedVolumeDetails" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".ui.SplashActivity"
+            android:noHistory="true"
+            android:theme="@style/NoTabAppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

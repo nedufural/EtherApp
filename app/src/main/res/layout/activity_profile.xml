@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.profile.ProfileActivity">
+
+            <include
+                android:id="@+id/toolbar_activity"
+                layout="@layout/toolbar_activity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/btc_card"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_margin="24dp"
+                android:background="@drawable/card_design_bitcoin"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/sign_out"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_activity"
+                app:layout_constraintVertical_bias="0.056">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/btc_icon" />
+
+                <TextView
+                    android:id="@+id/profile_user_name_btc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:fontFamily="@font/source_code_pro_black"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/profile_bitcoin_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:fontFamily="@font/source_code_pro_black"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/profile_bitcoin_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:fontFamily="@font/source_code_pro_black"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/eth_card"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_margin="24dp"
+                android:background="@drawable/card_design_ether"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/sign_out"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btc_card"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ether_icon" />
+
+                <TextView
+                    android:id="@+id/profile_user_name_ether"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:fontFamily="@font/source_code_pro_black"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/profile_ethereum_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:fontFamily="@font/source_code_pro_black"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/profile_ethereum_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:fontFamily="@font/source_code_pro_black"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/funds_tx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/sign_out"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eth_card">
+
+                <ImageView
+                    android:id="@+id/send_funds_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_send" />
+
+                <TextView
+                    android:id="@+id/send_funds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="send funds" />
+
+                <ImageView
+                    android:id="@+id/receive_funds_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_money" />
+                +
+
+                <TextView
+                    android:id="@+id/receive_funds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/btc_history"
+                    android:text="receive funds" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/funds_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/sign_out"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/funds_tx">
+
+                <ImageView
+                    android:id="@+id/bitcoin_tx_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/btc_history" />
+
+                <TextView
+                    android:id="@+id/bitcoin_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="bitcoin tx" />
+
+                <ImageView
+                    android:id="@+id/ether_tx_img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ether_history" />
+
+                <TextView
+                    android:id="@+id/ether_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="ether tx" />
+            </LinearLayout>
+
+
+            <com.github.angads25.toggle.LabeledSwitch
+                android:id="@+id/auth_switch"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textSize="14sp"
+                app:colorBorder="#00c4a6"
+                app:colorOn="#00c4a6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/funds_history"
+                app:layout_constraintVertical_bias="1.0"
+                app:on="true"
+                app:textOff="sign out"
+                app:textOn="signed in" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

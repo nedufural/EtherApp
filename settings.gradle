@@ -1,0 +1,2 @@
+rootProject.name='EtherApp'
+include ':app'

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tab_names">
+        <item>Rates</item>
+        <item>Transfer</item>
+        <item>Transactions</item>
+        <item>News</item>
+    </string-array>
+    <string-array name="tab_colors">
+        <item>#032463</item>
+        <item>#0A3E97</item>
+        <item>#0D4EBD</item>
+        <item>#3A7CEC</item>
+    </string-array>
+</resources>

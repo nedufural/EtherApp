@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="true">EtherApp</string>
+    <string name="rates" translatable="true">Rates</string>
+    <string name="transfer" translatable="true">Transfer</string>
+    <string name="transaction" translatable="true">History</string>
+    <string name="news" translatable="true">News</string>
+    <string name="facebook_app_id">ether_app</string>
+    <string name="user_name">Chinedu Agwu</string>
+    <string name="exchange_dialog_title">Exchange Details</string>
+    <string name="no_data_available">No Data Avaliable</string>
+</resources>

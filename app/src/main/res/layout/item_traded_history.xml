@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/traded_currency_name"
+        style="@style/TextItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/source_code_pro_black"
+        android:textSize="25sp"
+        android:textColor="#0000FF"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_margin="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/source_code_pro_black"
+            android:text="Traded Volume: " />
+
+        <TextView
+            android:id="@+id/traded_volume"
+            style="@style/TextItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple"
+            android:fontFamily="@font/source_code_pro_black"
+            android:layout_margin="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_code_pro_black"
+            android:layout_margin="8dp"
+            android:text="Currency change : " />
+
+        <TextView
+            android:id="@+id/traded_change_24h"
+            style="@style/TextItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_code_pro_black"
+            android:layout_margin="8dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_code_pro_black"
+            android:layout_margin="8dp"
+            android:text="As at: " />
+
+        <TextView
+            android:id="@+id/traded_time"
+            style="@style/TextItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#6BA66D"
+            android:fontFamily="@font/source_code_pro_black"
+            android:layout_margin="8dp" />
+    </LinearLayout>
+</LinearLayout>

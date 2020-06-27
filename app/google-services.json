@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1097778485469",
+    "firebase_url": "https://etherapp-15902.firebaseio.com",
+    "project_id": "etherapp-15902",
+    "storage_bucket": "etherapp-15902.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097778485469:android:6d246f82e3b39a1756e334",
+        "android_client_info": {
+          "package_name": "com.fastcon.etherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097778485469-acmahfuq5nv5mk03lad513g29dqft4lk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fastcon.etherapp",
+            "certificate_hash": "a819de86101873373f9e4fe3e28bc27052908cb1"
+          }
+        },
+        {
+          "client_id": "1097778485469-c4k5jdlr9sa66v6o3sfslovd7ts5p8gs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2TFxU2tdPxidF_gwVFahiuf784apwmNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097778485469-c4k5jdlr9sa66v6o3sfslovd7ts5p8gs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
