@@ -41,6 +41,12 @@
             android:background="@drawable/ic_close" />
     </FrameLayout>
 
+    <include
+        android:id="@+id/history_progress_layout"
+        layout="@layout/progress_bar"
+        android:visibility="gone" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_traded_history"
         android:layout_width="match_parent"

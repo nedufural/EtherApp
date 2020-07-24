@@ -1,3 +1,11 @@
 package com.fastcon.etherapp.data.remote.entity
 
-data class User(val name:String,val email:String,val pubKeyEther:String, val privKeyEther:String,val pubKeyBTC:String, val privKeyBTC:String)
+data class User(
+    var name: String? = null,
+    var email: String? = null,
+    var pubKeyEther: String? = null,
+    var privKeyEther: String? = null,
+    var pubKeyBTC: String? = null,
+    var privKeyBTC: String? = null,
+    var token: String? = null
+)

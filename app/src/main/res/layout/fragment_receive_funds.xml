@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.dialogs.ReceiveFundsFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/source_code_pro_black"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:text="ETHEREUM"/>
+    <ImageView
+        android:id="@+id/ethImgAddress"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_margin="16dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/source_code_pro_black"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:text="BITCOIN"/>
+    <ImageView
+        android:id="@+id/btcImgAddress"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:fontFamily="@font/source_code_pro_black"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:layout_margin="16dp" />
+</LinearLayout>
+
+
+</FrameLayout>

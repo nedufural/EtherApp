@@ -1,7 +1,7 @@
 package com.fastcon.etherapp.service
 
 import android.util.Patterns
-import com.fastcon.etherapp.util.Commons
+import com.fastcon.etherapp.util.common.Commons
 import com.google.android.material.textfield.TextInputLayout
 
 object AuthenticationModel {

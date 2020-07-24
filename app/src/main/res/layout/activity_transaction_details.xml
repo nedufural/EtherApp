@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="59dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,110 +40,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_margin="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_code_pro_black"
-                android:text="Time: " />
-
-            <TextView
-                android:id="@+id/timeStamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue"
-                android:fontFamily="@font/source_code_pro_black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_margin="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_code_pro_black"
-                android:text="Hash: " />
-
-            <TextView
-                android:id="@+id/hash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue"
-                android:fontFamily="@font/source_code_pro_black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_margin="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_code_pro_black"
-                android:text="Nonce: " />
-
-            <TextView
-                android:id="@+id/nonce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue"
-                android:fontFamily="@font/source_code_pro_black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_margin="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_code_pro_black"
-                android:text="Block Hash: " />
-
-            <TextView
-                android:id="@+id/blockHash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue"
-                android:fontFamily="@font/source_code_pro_black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_margin="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_code_pro_black"
-                android:text="Transaction Index: " />
-
-            <TextView
-                android:id="@+id/transactionIndex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue"
-                android:fontFamily="@font/source_code_pro_black" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_margin="6dp"
@@ -186,6 +82,92 @@
                 android:fontFamily="@font/source_code_pro_black" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_code_pro_black"
+                android:text="Hash: " />
+
+            <TextView
+                android:id="@+id/hash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/source_code_pro_black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_code_pro_black"
+                android:text="Block Hash: " />
+
+            <TextView
+                android:id="@+id/blockHash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/source_code_pro_black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_code_pro_black"
+                android:text="Nonce: " />
+
+            <TextView
+                android:id="@+id/nonce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/source_code_pro_black" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_margin="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_code_pro_black"
+                android:text="Transaction Index: " />
+
+            <TextView
+                android:id="@+id/transactionIndex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/source_code_pro_black" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_margin="6dp"

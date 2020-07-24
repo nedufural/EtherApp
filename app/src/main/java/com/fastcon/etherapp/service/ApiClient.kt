@@ -1,9 +1,8 @@
 package com.fastcon.etherapp.service
 
-import android.content.Context
-import com.fastcon.etherapp.data.local.PrefUtils
-import com.fastcon.etherapp.util.Commons
-import com.fastcon.etherapp.util.Commons.Notification_Base_Url
+
+import com.fastcon.etherapp.util.common.Commons
+import com.fastcon.etherapp.util.common.Commons.Notification_Base_Url
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -16,9 +15,6 @@ import java.util.Collections.singletonList
 import java.util.concurrent.TimeUnit
 
 
-/**
- * Created by ravi on 20/02/18.
- */
 internal class RSDeserializer : JsonDeserializer<List<String>> {
     override fun deserialize(
         json: JsonElement,
@@ -36,19 +32,6 @@ internal class RSDeserializer : JsonDeserializer<List<String>> {
             val boolean1 = context.deserialize<String>(json, String::class.java)
             singletonList(boolean1.toString())
         }
-    }
-}
-
-internal class ExpireTimeDeserializer : JsonDeserializer<String> {
-    override fun deserialize(
-        json: JsonElement,
-        typeOfT: Type,
-        context: JsonDeserializationContext
-    ): String {
-        val expireTime = context.deserialize<String>(json, String::class.java)
-        PrefUtils.setExpiredTime(expireTime)
-
-        return expireTime
     }
 }
 

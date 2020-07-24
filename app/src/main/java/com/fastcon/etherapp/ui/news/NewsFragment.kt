@@ -1,6 +1,7 @@
 package com.fastcon.etherapp.ui.news
 
 import android.content.Intent
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -10,9 +11,10 @@ import com.fastcon.etherapp.R
 import com.fastcon.etherapp.base.BaseFragment
 import com.fastcon.etherapp.base.ItemClickListener
 import com.fastcon.etherapp.data.local.PrefUtils
-import com.fastcon.etherapp.data.model.entity.NewsEntity
+import com.fastcon.etherapp.data.remote.entity.NewsEntity
 import com.fastcon.etherapp.ui.news_details.NewsDetailsActivity
 import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.fragment_news.progress_layout
 
 class NewsFragment : BaseFragment(), ItemClickListener<NewsEntity> {
     private lateinit var adapter: NewsAdapter
@@ -36,9 +38,10 @@ class NewsFragment : BaseFragment(), ItemClickListener<NewsEntity> {
     }
 
     override fun initEvent() {
-
+        progress_layout.visibility = View.VISIBLE
         newsViewModel.newsMutableLiveData.observe(this, Observer { newsData ->
             adapter.setData(newsData)
+            progress_layout.visibility = View.GONE
         })
     }
 

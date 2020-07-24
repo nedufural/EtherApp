@@ -16,7 +16,5 @@ open class DataManager {
         fun getNotificationApiService(): ApiService = ApiClient.getNotificationClient()
             .create(ApiService::class.java)
 
-
-
     }
 }

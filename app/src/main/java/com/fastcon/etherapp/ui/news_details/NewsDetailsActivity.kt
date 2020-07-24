@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fastcon.etherapp.R
 import com.fastcon.etherapp.base.BaseActivity
 import com.fastcon.etherapp.base.ItemClickListener
+import com.fastcon.etherapp.data.local.PrefUtils
 import com.fastcon.etherapp.data.local.PrefUtils.getNewsList
 import com.fastcon.etherapp.data.model.entity.NewsDetailsEntity
 import com.fastcon.etherapp.databinding.ActivityNewsDetailsBinding
 
-import com.fastcon.etherapp.util.DividerItemDecorator
+import com.fastcon.etherapp.util.views.DividerItemDecorator
 import kotlinx.android.synthetic.main.activity_news_details.*
+import kotlinx.android.synthetic.main.toolbar_activity.*
+
 import timber.log.Timber
 
 class NewsDetailsActivity : BaseActivity<ActivityNewsDetailsBinding>(), ItemClickListener<NewsDetailsEntity> {
@@ -39,6 +42,7 @@ class NewsDetailsActivity : BaseActivity<ActivityNewsDetailsBinding>(), ItemClic
 
     override fun initData() {
 
+        profile_text.text = PrefUtils.getUserName()
         val extras = intent.extras
             news_view.settings.javaScriptEnabled = true
         if (extras != null) {
@@ -52,12 +56,13 @@ class NewsDetailsActivity : BaseActivity<ActivityNewsDetailsBinding>(), ItemClic
             sourceName = extras.getString("source_name").toString()
             sourceUrl = extras.getString("source_url").toString()
 
-            var data = ArrayList<NewsDetailsEntity>()
+            val data = ArrayList<NewsDetailsEntity>()
             for (similarArticle in getNewsList()) {
                 data.add(NewsDetailsEntity(similarArticle.toString()))
             }
            adapter= NewsDetailsAdapter(this)
             adapter.setData(data)
+
             news_detail_similar_articles.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)
             val dividerItemDecoration =
                 DividerItemDecorator(this.let {
@@ -95,10 +100,10 @@ class NewsDetailsActivity : BaseActivity<ActivityNewsDetailsBinding>(), ItemClic
         }
         news_view.loadUrl(sourceUrl)
 
-
     }
 
     override fun onItemClick(data: NewsDetailsEntity?, position: Int, typeClick: Int) {
 
     }
+
 }

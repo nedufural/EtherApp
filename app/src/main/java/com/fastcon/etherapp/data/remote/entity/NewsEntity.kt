@@ -1,4 +1,4 @@
-package com.fastcon.etherapp.data.model.entity
+package com.fastcon.etherapp.data.remote.entity
 
 import com.fastcon.etherapp.data.remote.model.NewsResponse
 

@@ -3,8 +3,10 @@ package com.fastcon.etherapp.ui.transaction_details
 
 import com.fastcon.etherapp.R
 import com.fastcon.etherapp.base.BaseActivity
+import com.fastcon.etherapp.data.local.PrefUtils
 import com.fastcon.etherapp.databinding.ActivityTransactionDetailsBinding
 import kotlinx.android.synthetic.main.activity_transaction_details.*
+import kotlinx.android.synthetic.main.toolbar_activity.*
 
 
 class EthereumTransactionDetails : BaseActivity<ActivityTransactionDetailsBinding>() {
@@ -15,9 +17,8 @@ class EthereumTransactionDetails : BaseActivity<ActivityTransactionDetailsBindin
     }
 
     override fun initData() {
-
+        profile_text.text = PrefUtils.getUserName()
         blockNumber.text = intent.getStringExtra("blockNumber")
-        timeStamp.text  = intent.getStringExtra("timeStamp")
         hash.text = intent.getStringExtra("hash")
         nonce.text = intent.getStringExtra("nonce")
         blockHash.text = intent.getStringExtra("blockHash")

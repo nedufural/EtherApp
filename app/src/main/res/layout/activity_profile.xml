@@ -22,8 +22,8 @@
             <LinearLayout
                 android:id="@+id/btc_card"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_margin="24dp"
+                android:layout_height="190dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/card_design_bitcoin"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/sign_out"
@@ -42,35 +42,37 @@
                     android:id="@+id/profile_user_name_btc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:layout_marginLeft="16dp"
                     android:fontFamily="@font/source_code_pro_black"
-                    android:textSize="12sp"
-                    android:textColor="#FFFFFF"/>
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/profile_bitcoin_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:layout_marginLeft="16dp"
                     android:fontFamily="@font/source_code_pro_black"
-                    android:textSize="12sp"
-                    android:textColor="#FFFFFF"/>
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/profile_bitcoin_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:layout_marginLeft="16dp"
                     android:fontFamily="@font/source_code_pro_black"
-                    android:textSize="12sp"
-                    android:textColor="#FFFFFF"/>
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/eth_card"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_margin="24dp"
+                android:layout_height="190dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/card_design_ether"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/sign_out"
@@ -89,28 +91,28 @@
                     android:id="@+id/profile_user_name_ether"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:layout_marginLeft="16dp"
                     android:fontFamily="@font/source_code_pro_black"
-                    android:textSize="12sp"
-                    android:textColor="#FFFFFF"/>
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/profile_ethereum_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:layout_marginLeft="16dp"
                     android:fontFamily="@font/source_code_pro_black"
-                    android:textSize="12sp"
-                    android:textColor="#FFFFFF"/>
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/profile_ethereum_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
+                    android:layout_marginLeft="16dp"
                     android:fontFamily="@font/source_code_pro_black"
-                    android:textSize="12sp"
-                    android:textColor="#FFFFFF"/>
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <LinearLayout
@@ -143,13 +145,14 @@
                     android:layout_height="20dp"
                     android:layout_margin="8dp"
                     android:src="@drawable/ic_money" />
-                +
+
 
                 <TextView
                     android:id="@+id/receive_funds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:clickable="true"
                     android:src="@drawable/btc_history"
                     android:text="receive funds" />
             </LinearLayout>

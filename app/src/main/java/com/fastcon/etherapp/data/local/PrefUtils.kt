@@ -4,6 +4,7 @@ package com.fastcon.etherapp.data.local
 import android.content.Context.MODE_PRIVATE
 import com.facebook.FacebookSdk.getApplicationContext
 import com.fastcon.etherapp.data.remote.entity.TradedVolumeEntity
+import com.fastcon.etherapp.data.remote.model.BitcoinResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.orhanobut.hawk.Hawk
@@ -17,62 +18,6 @@ import java.util.*
  * add it in header part of every retrofit request
  */
 object PrefUtils {
-    private fun getFiles(): HashMap<String, String> {
-        return Hawk.get("files") ?: hashMapOf()
-    }
-
-    fun saveFile(key: String, value: String) {
-        val files = getFiles()
-        files[key] = value
-        Hawk.put("files", files)
-
-    }
-
-    fun hasExpired(): Boolean {
-        val tokenExpired = getExpiredDate()
-        println("=======================Expired time : ${toSimpleString(tokenExpired)})")
-        println("=======================Current time : ${toSimpleString(Date())}")
-        if (tokenExpired > Date()) {
-            println("=======================has expired : false")
-            return false
-        }
-        println("=======================has expired : true")
-        return true
-    }
-
-
-    private fun getExpiredDate(): Date {
-
-        return Hawk.get("Expired_Date", Date())
-    }
-
-    fun setExpiredTime(exipires: String) {
-        if (exipires.isNotEmpty()) {
-            var expiredDate = "$exipires +0900"
-            print("=======================Expired time== : ${expiredDate.format("yyyy-MM-dd HH:mm:ssZ")})")
-            var ex = expiredDate.format("yyyy-MM-dd HH:mm:ssZ")
-            Hawk.put("Expired_Date", ex)
-
-        }
-    }
-
-    private fun clearExpiredTime() {
-        Hawk.delete("Expired_Date")
-    }
-
-    private fun clearApiKey() {
-        Hawk.delete("API_KEY")
-    }
-
-
-    fun getApiKey(): String {
-
-        return getData("API_KEY") ?: ""
-    }
-
-    fun storeApiKey(apiKey: String) {
-        saveData("API_KEY", apiKey)
-    }
 
     fun getNewsList(): List<Any?> {
 
@@ -84,58 +29,17 @@ object PrefUtils {
     }
 
 
-    fun setLogin(isLogin: Boolean) {
-        Hawk.put("isLogin", isLogin)
-    }
-
-
-    fun hasLogin(): Boolean {
-        return Hawk.get("isLogin", false)
-
-    }
-
-    fun setRequestCurrencies(currencies: String) {
-        Hawk.put("currencies", currencies)
-    }
-
-
-    fun getRequestCurrencies(): String {
-        return Hawk.get("currencies", "")
-
-    }
-
-    fun setRequestCrypto(currencies: String) {
-        Hawk.put("crypto", currencies)
-    }
-
-
-    fun getRequestCrypto(): String {
-        return Hawk.get("crypto", "")
-
-    }
-
-    fun clearRequestCrypto() {
-        Hawk.delete("crypto")
-    }
-
-    fun clearRequestCurrencies() {
-        Hawk.delete("currencies")
-    }
-    /*   fun saveUser(user: LoginResponse) {
-           Hawk.put("userProfile", user)
-
-       }
-
-       fun getUser(): LoginResponse {
-           return Hawk.get("userProfile", LoginResponse())
-       }*/
-
     fun saveDeviceToken(device_token: String) {
         Hawk.put("device_token", device_token)
     }
 
+    @JvmStatic
     fun getDeviceToken(): String {
         return Hawk.get("device_token", "")
+    }
+
+    fun clearDeviceToken() {
+         Hawk.delete("device_token")
     }
 
     fun saveUserName(userName: String) {
@@ -146,40 +50,10 @@ object PrefUtils {
         return Hawk.get("userName", "")
     }
 
-    fun savePassword(password: String) {
-        Hawk.put("password", password)
+    fun clearUserName(){
+        Hawk.delete("userName")
     }
-
-    fun getPassword(): String {
-        return Hawk.get("password", "")
-    }
-
-    fun saveWalletPath(path: String) {
-        Hawk.put("c", path)
-    }
-
-    fun getWalletPath(): String {
-        return Hawk.get("saveWalletPath", "")
-    }
-
-    fun saveArrayList(list: ArrayList<String>, key: String?) {
-        val prefs = getApplicationContext().getSharedPreferences("App_List", MODE_PRIVATE)
-        val editor = prefs.edit()
-        val gson = Gson()
-        val json = gson.toJson(list)
-        editor.putString(key, json)
-        editor.apply()
-    }
-
-    fun getArrayList(key: String?): ArrayList<String?>? {
-        val prefs = getApplicationContext().getSharedPreferences("App_List", MODE_PRIVATE)
-        val gson: Gson = Gson()
-        val json = prefs.getString(key, null)
-        val type: Type = object : TypeToken<ArrayList<String?>?>() {}.type
-        return gson.fromJson(json, type)
-    }
-
-    private fun getData(key: String): String? {
+     private fun getData(key: String): String? {
         return Hawk.get(key, "")
 
     }
@@ -189,28 +63,9 @@ object PrefUtils {
 
     }
 
-    fun setIsEnable(isEnable: Boolean) {
-        Hawk.put("isEnabled", isEnable)
-
-    }
-
-    fun isEnable(): Boolean {
-        return Hawk.get("isEnabled", false)
-
-    }
-
-    fun logout() {
-        clearApiKey()
-        setLogin(false)
-    }
-
     private fun toSimpleString(date: Date): String {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ")
         return format.format(date)
-    }
-
-    fun expired() {
-
     }
 
     fun isSignedIn(): Boolean {
@@ -237,20 +92,33 @@ object PrefUtils {
         return Hawk.get("tradedVolume")
     }
 
-    fun ethereumAddress(ethAddress: String?) {
+    fun saveEthereumAddress(ethAddress: String?) {
         Hawk.put("ethereumAddress", ethAddress)
     }
 
+    @JvmStatic
     fun getEtherAddress(): String {
-        return Hawk.get("ethereumAddress","default")
+        return Hawk.get("ethereumAddress", "default")
     }
 
-    fun btcAddress(btcAddress: String?) {
+    @JvmStatic
+    fun clearEtherAddress() {
+        Hawk.delete("ethereumAddress")
+    }
+
+
+    fun saveBtcAddress(btcAddress: String?) {
         Hawk.put("bitcoinAddress", btcAddress)
     }
 
     fun getBitcoinAddress(): String {
-        return Hawk.get("bitcoinAddress","default")
+        return Hawk.get("bitcoinAddress", "default")
+    }
+
+
+    @JvmStatic
+    fun clearBitcoinAddress() {
+        Hawk.delete("ethereumAddress")
     }
 
     @JvmStatic
@@ -259,15 +127,71 @@ object PrefUtils {
     }
 
     fun getBitKey(): String {
-        return Hawk.get("bitKey","default")
+        return Hawk.get("bitKey", "default")
+    }
+
+    @JvmStatic
+    fun clearBTCKey() {
+        Hawk.delete("bitKey")
     }
 
     @JvmStatic
     fun saveEthKey(privateKey: String) {
-        Hawk.put("ethKey",privateKey)
+        Hawk.put("ethKey", privateKey)
     }
 
-    fun getEthKey():String{
-        return Hawk.get("ethKey","default")
+    @JvmStatic
+    fun getEthKey(): String {
+        return Hawk.get("ethKey", "default")
+    }
+
+    @JvmStatic
+    fun clearEthKey() {
+        Hawk.delete("ethKey")
+    }
+
+    fun saveBitcoinInputDetails(inputs: List<BitcoinResponse.Tx.Input>) {
+        Hawk.put("btc_in_data", inputs)
+    }
+
+    fun getBitcoinInputDetails(): List<BitcoinResponse.Tx.Input> {
+        return Hawk.get("btc_in_data")
+    }
+
+    fun saveBitcoinOutputDetails(out: List<BitcoinResponse.Tx.Out>) {
+        Hawk.put("btc_out_data", out)
+    }
+
+    fun getBitcoinOutputDetails(): List<BitcoinResponse.Tx.Out> {
+        return Hawk.get("btc_out_data")
+    }
+
+    fun setEmail(email: String) {
+        Hawk.put("email", email)
+    }
+
+    fun getEmail(): String {
+        return Hawk.get("email", "default")
+    }
+
+    fun getReceiverToken():String {
+        return Hawk.get("receiverToken","default")
+    }
+
+    @JvmStatic
+    fun saveReceiversToken(Token: String) {
+        Hawk.put("receiverToken",Token)
+    }
+
+    fun clearReceiverToken() {
+        Hawk.delete("receiverToken")
+    }
+
+
+
+
+
+    fun saveReceiverEmail(receiverEmailText: String) {
+        Hawk.put("receiver_email",receiverEmailText)
     }
 }

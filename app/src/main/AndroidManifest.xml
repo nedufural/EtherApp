@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fastcon.etherapp">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:name=".EtherApplication"
@@ -15,14 +18,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.transaction_details.BitcoinTransactionDetails"></activity>
+
+        <service android:name=".notification.DeviceFirebaseMessaging"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+
+        </service>
+        <activity android:name=".ui.send_funds.ethereum.SendEther" />
+        <activity android:name=".ui.transaction_details.BitcoinTransactionDetails" />
         <activity android:name=".ui.transaction_details.EthereumTransactionDetails" />
         <activity
             android:name=".ui.profile.ProfileActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".ui.registration.RegistrationActivity" />
-        <activity android:name=".ui.transaction.EthereumTransactionActivity" />
-        <activity android:name=".ui.transaction.BitcoinTransactionActivity" />
+        <activity android:name=".ui.registration.RegistrationActivity"
+            android:noHistory="true"/>
+        <activity android:name=".ui.transaction.ether_transactions.EthereumTransactionActivity" />
+        <activity android:name=".ui.transaction.btc_transactions.BitcoinTransactionActivity" />
         <activity android:name=".ui.news_details.NewsDetailsActivity" />
         <activity android:name=".ui.traded_volume_details.TradedVolumeDetails" />
 
@@ -35,20 +49,22 @@
 
         <activity
             android:name=".ui.home.HomeActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            />
         <activity
             android:name=".ui.login.LoginActivity"
             android:noHistory="true" />
         <activity
             android:name=".ui.SplashActivity"
             android:noHistory="true"
+            android:launchMode="singleTask"
             android:theme="@style/NoTabAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.send_funds.bitcoin.SendBitcoin" />
     </application>
 
 </manifest>

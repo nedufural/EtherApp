@@ -11,7 +11,7 @@ import com.fastcon.etherapp.R
 import com.fastcon.etherapp.base.BaseRecycleViewAdapter
 import com.fastcon.etherapp.base.BaseViewHolder
 import com.fastcon.etherapp.base.ItemClickListener
-import com.fastcon.etherapp.data.model.entity.NewsEntity
+import com.fastcon.etherapp.data.remote.entity.NewsEntity
 
 class NewsAdapter(private val itemClickListener: ItemClickListener<NewsEntity>) :
     BaseRecycleViewAdapter<NewsEntity>() {

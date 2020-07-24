@@ -9,24 +9,18 @@ import com.fastcon.etherapp.base.BaseRecycleViewAdapter
 import com.fastcon.etherapp.base.BaseViewHolder
 import com.fastcon.etherapp.base.ItemClickListener
 import com.fastcon.etherapp.data.model.entity.ExchangeRateEntity
-import com.fastcon.etherapp.util.Utility.exponentialNumToString
+import com.fastcon.etherapp.util.functions.OperationsUtils.exponentialNumToString
+
+import java.util.*
 
 class ExchangeAdapter(private val itemClickListener: ItemClickListener<ExchangeRateEntity>) :
     BaseRecycleViewAdapter<ExchangeRateEntity>(itemClickListener) {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): BaseViewHolder<ExchangeRateEntity> {
-        val convertView =
-            LayoutInflater.from(parent.context).inflate(R.layout.items_exchange, parent, false)
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ExchangeRateEntity> {
+        val convertView = LayoutInflater.from(parent.context).inflate(R.layout.items_exchange, parent, false)
         return ExchangeViewHolder(convertView, itemClickListener = itemClickListener)
     }
 
-    class ExchangeViewHolder(
-        convertView: View,
-        itemClickListener: ItemClickListener<ExchangeRateEntity>
-    ) :
+    class ExchangeViewHolder(convertView: View, itemClickListener: ItemClickListener<ExchangeRateEntity>) :
         BaseViewHolder<ExchangeRateEntity>(itemClickListener, convertView) {
 
         private var currencyId: TextView = convertView.findViewById(R.id.currency_id)
@@ -43,20 +37,24 @@ class ExchangeAdapter(private val itemClickListener: ItemClickListener<ExchangeR
              * */
             setData(data)
 
+            setEntityDataToView(data)
+
+        }
+
+        private fun setEntityDataToView(data: ExchangeRateEntity?) {
+            currencyId.text = data?.id?.toUpperCase(Locale.getDefault())
+            currencySymbol.text = data?.symbol?.toUpperCase(Locale.getDefault())
             val exRates = String.format("%.4f", data?.rateUsd?.toDouble()).toDouble()
             if (exRates.toString().contains("E")) {
                 currencyRate.text = exponentialNumToString(exRates)
             } else {
                 currencyRate.text = exRates.toString()
             }
-            currencyId.text = data?.id?.toUpperCase()
-            currencySymbol.text = " ${data?.symbol?.toUpperCase()}"
             if (data?.currencySymbol == "null") {
                 symbol.text = data.symbol
             } else {
                 symbol.text = data?.currencySymbol
             }
-
         }
     }
 

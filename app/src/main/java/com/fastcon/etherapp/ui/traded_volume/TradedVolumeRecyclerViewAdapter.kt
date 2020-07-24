@@ -15,20 +15,12 @@ import java.util.*
 
 class TradedVolumeRecyclerViewAdapter(private val itemClickListener: ItemClickListener<TradedVolumeEntity>) :
     BaseRecycleViewAdapter<TradedVolumeEntity>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): BaseViewHolder<TradedVolumeEntity> {
-        val convertView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_traded_history, parent, false)
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<TradedVolumeEntity> {
+        val convertView = LayoutInflater.from(parent.context).inflate(R.layout.item_traded_history, parent, false)
         return TradedVolumeViewHolder(convertView, itemClickListener = itemClickListener)
     }
 
-    class TradedVolumeViewHolder(
-        convertView: View,
-        itemClickListener: ItemClickListener<TradedVolumeEntity>
-    ) :
+    class TradedVolumeViewHolder(convertView: View, itemClickListener: ItemClickListener<TradedVolumeEntity>) :
         BaseViewHolder<TradedVolumeEntity>(itemClickListener, convertView) {
         var conView: View = convertView
         var tVolume: TextView = convertView.findViewById(R.id.traded_volume)

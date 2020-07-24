@@ -15,7 +15,6 @@ abstract class BaseViewHolder<T : Any>(
 
     abstract fun bindingData(data: T?)
 
-
     fun setData(data: T?) {
         mData = data
     }

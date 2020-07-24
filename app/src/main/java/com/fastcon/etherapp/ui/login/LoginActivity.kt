@@ -2,7 +2,9 @@ package com.fastcon.etherapp.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -12,43 +14,69 @@ import com.fastcon.etherapp.data.local.PrefUtils
 import com.fastcon.etherapp.service.AuthenticationModel
 import com.fastcon.etherapp.ui.home.HomeActivity
 import com.fastcon.etherapp.ui.registration.RegistrationActivity
-import com.fastcon.etherapp.util.Extensions.Companion.checkInternet
+import com.fastcon.etherapp.util.functions.KeyBoardUtils.Companion.textLayoutHideKeyBoard
+import com.fastcon.etherapp.util.functions.NetworkUtil.Companion.checkInternet
+import com.fastcon.etherapp.util.views.FragmentUtils
 import com.google.firebase.auth.FirebaseAuth
+
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.spinner_text.view.*
 import timber.log.Timber
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginModelViewModel: LoginViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
-        animateView()
-        Timber.i("VieModelProvider.of!")
         loginModelViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
+        animateView()
         email.editText?.setText("agwu@gmail.com")
         password.editText?.setText("Abc@123#")
-        submit.setOnClickListener {
-            if (!checkInternet(this)) {
-                Toast.makeText(this, "Connect to internet to proceed!", Toast.LENGTH_LONG).show()
-            } else {
-                confirmInput()
-            }
-        }
-        register.setOnClickListener {
-            println("clicked")
+        loginButtonEvent(submit)
+        registerButtonEvent(register)
+        clearAllSharedPreferences()
+    }
+
+    private fun registerButtonEvent(button: Button) {
+        button.setOnClickListener {
+
             startActivity(Intent(this, RegistrationActivity::class.java))
         }
+    }
+
+    private fun loginButtonEvent(button: Button) {
+        button.setOnClickListener {
+            PrefUtils.setEmail(email?.editText?.text.toString())
+            textLayoutHideKeyBoard(this, password)
+            if (!checkInternet(this)) {
+                Toast.makeText(this, getString(R.string.check_network), Toast.LENGTH_LONG).show()
+            } else {
+                progress_layout.visibility = View.VISIBLE
+                confirmInput()
+                loginSuccess()
+                loginError()
+            }
+        }
+    }
+
+    private fun clearAllSharedPreferences() {
+        PrefUtils.clearBTCKey()
+        PrefUtils.clearEthKey()
+        PrefUtils.clearBitcoinAddress()
+        PrefUtils.clearEtherAddress()
+        PrefUtils.clearUserName()
+        PrefUtils.clearDeviceToken()
+        PrefUtils.clearReceiverToken()
 
     }
 
 
     private fun animateView() {
-        // username.startAnimation(AnimationUtils.loadAnimation(this, R.anim.animate_left_in))
+
 
         password.startAnimation(
             AnimationUtils.loadAnimation(
@@ -83,42 +111,44 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun confirmInput() {
+        val loginModel = AuthenticationModel
+        val mAuth = FirebaseAuth.getInstance()
+        if (!loginModel.validateEmail(email) or !loginModel.validatePassword(password)) {
+            return
+        }
+
+        loginAuthenticationMethod(mAuth)
+    }
+
+    private fun loginAuthenticationMethod(mAuth: FirebaseAuth) {
+        loginModelViewModel.authUser(
+            mAuth,
+            email.editText?.text.toString().trim(),
+            password.editText?.text.toString().trim()
+        )
+    }
+
+    private fun loginSuccess() {
+        loginModelViewModel.getLoginResult()?.observe(this, Observer {
+            Timber.i(it)
+            PrefUtils.setSignedIn(true)
+            progress_layout.visibility = View.GONE
+            startActivity(Intent(this, HomeActivity::class.java))
+            error_alert.visibility = View.GONE
+        })
+    }
+
+    private fun loginError() {
+        loginModelViewModel.getLoginError()?.observe(this, Observer {
+            progress_layout.visibility = View.GONE
+            error_alert.visibility = View.VISIBLE
+        })
+    }
+
     override fun onPause() {
         super.onPause()
         finish()
     }
-
-    private fun confirmInput() {
-        val loginModel = AuthenticationModel
-        val mAuth = FirebaseAuth.getInstance()
-        if (!loginModel.validateEmail(email)
-            /** or !loginModel.validateUsername(username)*/
-            or !loginModel.validatePassword(
-                password
-            )
-        ) {
-            return
-        }
-        var input = "Email: " + email?.editText?.text.toString()
-        input += "\n"
-        input += "Password: " + password?.editText?.text.toString()
-
-        loginModelViewModel.authUser(
-               this,
-               mAuth,
-               email.editText?.text.toString().trim(),
-               password.editText?.text.toString().trim()
-           )
-        loginModelViewModel.loginMutableLiveData.observe(this, Observer { loginResult ->
-            if (loginResult == "failure") {
-                Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show()
-                //finish()
-            }
-
-            PrefUtils.setSignedIn(true)
-            startActivity(Intent(this, HomeActivity::class.java))
-        })
-    }
-
 
 }

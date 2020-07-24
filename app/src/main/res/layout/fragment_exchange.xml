@@ -42,6 +42,10 @@
             android:background="@drawable/ic_close" />
     </FrameLayout>
 
+    <include
+        android:id="@+id/progress_layout"
+        layout="@layout/progress_bar"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/exchange_list"

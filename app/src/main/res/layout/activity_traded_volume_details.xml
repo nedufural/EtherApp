@@ -22,31 +22,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="invisible"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:fontFamily="@font/source_code_pro_black"
-                        android:text="ID: "
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/t_detail_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:fontFamily="@font/source_code_pro_black"
-                        android:textColor="@color/blue"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
+                <include
+                    android:id="@+id/progress_layout"
+                    layout="@layout/progress_bar"
+                    android:visibility="gone" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

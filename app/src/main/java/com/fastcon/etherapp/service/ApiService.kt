@@ -1,11 +1,14 @@
 package com.fastcon.etherapp.service
 
+import com.fastcon.etherapp.notification.PushNotification
 import com.fastcon.etherapp.data.remote.entity.TradedIntervalsResponse
 import com.fastcon.etherapp.data.remote.entity.BitcoinBalanceResponse
-import com.fastcon.etherapp.data.remote.NoticeResponse
-import com.fastcon.etherapp.data.remote.UploadDeviceToken
 import com.fastcon.etherapp.data.remote.model.*
+import com.fastcon.etherapp.util.common.Commons.CONTENT_TYPE
+import com.fastcon.etherapp.util.common.Commons.SERVER_KEY
+import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -18,9 +21,6 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
-    @PATCH("device_relations")
-    fun updateDeviceToken(@Body request: UploadDeviceToken): Call<NoticeResponse>
-
 
     @GET("v2/rates")
     fun getExchangeRates(): Call<RateResponse>
@@ -30,13 +30,13 @@ interface ApiService {
 
     @GET("v2/assets/{id}")
     fun getTradedDetails(@Path("id") id: String): Call<TradedDetailsResponse>
+
     @GET("v2/assets/{id}/history?interval=d1")
     fun getTradedHistoryIntervals(@Path("id") id: String): Call<TradedIntervalsResponse>
 
     @Headers("x-api-key: ed3a6937cc67a800c3088ced93fc7be1")
     @GET
     fun getNews(@Url url: String): Call<NewsResponse>
-
 
     @GET
     fun getTransferHistory(@Url url: String): Call<TransferResponse>
@@ -49,4 +49,15 @@ interface ApiService {
      * */
     @GET
     fun getBitcoinBalance(@Url url: String): Call<BitcoinBalanceResponse>
+
+    /**
+     * implemented push notification with kotlin coroutines
+     * */
+    @Headers("Authorization: key=$SERVER_KEY", "Content-Type:$CONTENT_TYPE")
+    @POST("fcm/send")
+    suspend fun postNotification(
+        @Body notification: PushNotification
+    ): Response<ResponseBody>
+
+
 }

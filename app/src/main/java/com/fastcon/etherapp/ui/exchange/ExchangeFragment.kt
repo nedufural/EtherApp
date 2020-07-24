@@ -2,13 +2,12 @@ package com.fastcon.etherapp.ui.exchange
 
 
 import android.app.Activity
-import android.graphics.Typeface
-import android.os.Bundle
-import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,12 +18,14 @@ import com.fastcon.etherapp.R
 import com.fastcon.etherapp.base.BaseFragment
 import com.fastcon.etherapp.base.ItemClickListener
 import com.fastcon.etherapp.data.model.entity.ExchangeRateEntity
-import com.fastcon.etherapp.util.Extensions
-import com.fastcon.etherapp.util.Utility
-import com.fastcon.etherapp.util.Utility.exchangeRateReverseCalculation
-import com.google.firebase.auth.FirebaseAuth
+import com.fastcon.etherapp.util.functions.KeyBoardUtils.Companion.editTextHideKeyBoard
+import com.fastcon.etherapp.util.functions.NetworkUtil.Companion.checkInternet
+import com.fastcon.etherapp.util.functions.OperationsUtils.exchangeRateReverseCalculation
+
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_exchange.*
-import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ExchangeFragment : BaseFragment(), ItemClickListener<ExchangeRateEntity> {
@@ -37,11 +38,49 @@ class ExchangeFragment : BaseFragment(), ItemClickListener<ExchangeRateEntity> {
     }
 
     override fun initData() {
-
-        activity?.let { Extensions.hideKeyBoard(it, search_currencies) }
+        exchangeViewModel = ViewModelProviders.of(this).get(ExchangeViewModel::class.java)
+        activity?.let { editTextHideKeyBoard(it, search_currencies) }
         adapter = ExchangeAdapter(this)
         exchange_list.layoutManager = LinearLayoutManager(context)
 
+        recyclerViewDivideDecoration()
+        adapter.setHasStableIds(true)
+        exchange_list.adapter = adapter
+
+    }
+    override fun initEvent() {
+        showCustomProgress()
+        getExchangeRatesResponse()
+        clearEditText(currency_delete)
+        checkNetworkConnection()
+        dbErrorMessage()
+    }
+
+    private fun dbErrorMessage() {
+        exchangeViewModel.getExchangeErrorMsg()
+            ?.observe(viewLifecycleOwner, Observer { errorResponse ->
+                context?.let { showToast(it, errorResponse) }
+            })
+    }
+
+    private fun checkNetworkConnection() {
+        if (!checkInternet(context!!)) {
+            Snackbar.make(requireView(), R.string.check_network, Snackbar.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), R.string.check_network, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun getExchangeRatesResponse() {
+        exchangeViewModel.getExchangeRates()
+        exchangeViewModel.getExchangeRateMutableLiveData()
+            ?.observe(viewLifecycleOwner, Observer { exchangeRates ->
+                adapter.setData(exchangeRates)
+                hideCustomProgress()
+                searchCurrency(exchangeRates, search_currencies)
+            })
+    }
+
+    private fun recyclerViewDivideDecoration() {
         val dividerItemDecoration =
             DividerItemDecoration(
                 exchange_list.context,
@@ -54,81 +93,39 @@ class ExchangeFragment : BaseFragment(), ItemClickListener<ExchangeRateEntity> {
                 search_currencies
             )
         )
-        adapter.setHasStableIds(true)
-        exchange_list.adapter = adapter
-
-
-        exchangeViewModel = ViewModelProviders.of(this).get(ExchangeViewModel::class.java)
-
     }
 
-    override fun initEvent() {
-        exchangeViewModel.getExchangeRates()
-        exchangeViewModel.exchangeRateMutableLiveData.observe(viewLifecycleOwner, Observer { it ->
+    private fun showCustomProgress() {
+        progress_layout.visibility = View.VISIBLE
+    }
 
-            adapter.setData(it)
+    private fun hideCustomProgress() {
+        progress_layout.visibility = View.GONE
+    }
 
-            search_currencies.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                }
-
-                override fun onTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                }
-
-                override fun afterTextChanged(editable: Editable) {
-                    //after the change call the method and passing the search input
-                    filter(editable.toString(), it, adapter)
-                }
-            })
-        })
-
-        currency_delete.setOnClickListener(View.OnClickListener {
+    private fun clearEditText(button: Button) {
+        button.setOnClickListener {
             search_currencies.text.clear()
+        }
+    }
+
+    private fun searchCurrency(data: ArrayList<ExchangeRateEntity>,searchBox: EditText) {
+        searchBox.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                filterExchange(editable.toString(), data, adapter)
+            }
         })
-
-        /*if(activity?.currentFocus == search_currencies){
-            searchBtn.visibility = View.GONE
-        }*/
-
-    /*    searchBtn.setOnClickListener(View.OnClickListener {
-            search_currencies.visibility = View.VISIBLE
-            currency_delete.visibility = View.VISIBLE
-            searchBtn.visibility = View.GONE
-            //Utility.slideFromRightToLeft(search_currencies)
-        })*/
-        /* val profileUpdates = UserProfileChangeRequest.Builder()
-             .setDisplayName("Jane Q. User")
-             .setPhotoUri(Uri.parse("https://daihoc.fpt.edu.vn/media/2017/01/sv-que1bb91c-te1babf-ce1bba7a-c491h-fpt-trc3acnh-bc3a0y-bc3a1o-cc3a1o-te1baa1i-e28098e1bba9ng-de1bba5ng-gis-toc3a0n-que1bb91c_-2.jpg"))
-             .build()
-
-         user!!.updateProfile(profileUpdates)
-             .addOnCompleteListener { task ->
-                 if (task.isSuccessful) {
-                     Timber.i( "User profile updated.")
-                 }
-             }
- */
-
-
     }
 
     override fun onItemClick(data: ExchangeRateEntity?, position: Int, typeClick: Int) {
-
-        val user = FirebaseAuth.getInstance().currentUser
         val exchange = String.format("%.4f", data?.rateUsd?.toDouble()).toDouble()
-
         MaterialDialog(requireContext()).show {
-
             if (data?.currencySymbol == "null") {
                 title(text = " USD vs ${data.symbol.toUpperCase()}")
             } else {
@@ -143,44 +140,22 @@ class ExchangeFragment : BaseFragment(), ItemClickListener<ExchangeRateEntity> {
         }
     }
 
-    fun filter(
-        text: String,
-        names: ArrayList<ExchangeRateEntity>,
-        adapter: ExchangeAdapter
-    ) {
-        //new array list that will hold the filtered data
+    fun filterExchange(text: String, names: ArrayList<ExchangeRateEntity>, adapter: ExchangeAdapter) {
         val filteredList: ArrayList<ExchangeRateEntity> = ArrayList()
-
-        //looping through existing elements
         for (s in names) {
-            //if the existing elements contains the search input
-            if (s.id.toLowerCase().contains(text.toLowerCase()) ||
-                s.symbol.toLowerCase().contains(text.toLowerCase())
-            ) {
-                //adding the element to filtered list
+            if (s.id.toLowerCase(Locale.getDefault()).contains(text.toLowerCase(Locale.getDefault()))
+                || s.symbol.toLowerCase(Locale.getDefault()).contains(text.toLowerCase(Locale.getDefault()))) {
                 filteredList.add(s)
             }
         }
-
-        //calling a method of the adapter class and passing the filtered list
         adapter.filterList(filteredList)
-
-
-        /**
-         *
-         * TODO
-         * https://proandroiddev.com/5-common-mistakes-when-using-architecture-components-403e9899f4cb
-         * */
     }
 
-    private fun setRecyclerViewScrollListener(
-        activity: Activity,
-        searchBox: EditText
-    ): RecyclerView.OnScrollListener {
+    private fun setRecyclerViewScrollListener(activity: Activity, searchBox: EditText): RecyclerView.OnScrollListener {
         return object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                Extensions.hideKeyBoard(activity, searchBox)
+               editTextHideKeyBoard(activity, searchBox)
             }
         }
     }
@@ -190,5 +165,4 @@ class ExchangeFragment : BaseFragment(), ItemClickListener<ExchangeRateEntity> {
         adapter.notifyDataSetChanged()
         exchange_list.adapter = adapter
     }
-
 }

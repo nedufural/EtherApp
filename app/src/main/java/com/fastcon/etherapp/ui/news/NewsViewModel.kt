@@ -3,7 +3,7 @@ package com.fastcon.etherapp.ui.news
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fastcon.etherapp.data.DataManager
-import com.fastcon.etherapp.data.model.entity.NewsEntity
+import com.fastcon.etherapp.data.remote.entity.NewsEntity
 import com.fastcon.etherapp.data.remote.model.NewsResponse
 import retrofit2.Call
 import retrofit2.Callback

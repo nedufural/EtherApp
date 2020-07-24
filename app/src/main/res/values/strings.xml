@@ -8,4 +8,23 @@
     <string name="user_name">Chinedu Agwu</string>
     <string name="exchange_dialog_title">Exchange Details</string>
     <string name="no_data_available">No Data Avaliable</string>
+    <string name="send_ether">Send Ether</string>
+    <string name="send_send_btc">Send Bitcoin</string>
+    <string name="error">error</string>
+    <string name="check_network">Connect to internet to proceed!</string>
+    <string name="please_wait">Please wait ...</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="success">success</string>
+    <string name="error_incorrect_credentials">Trouble logging!! Incorrect email or password.</string>
+    <string name="register_failed">Registration failed !!</string>
+    <string name="password_not_equal">Passwords are not the same !!</string>
+    <string name="register_success_message">You have successfully created a Bitcoin and Ethereum wallet. Please login to use your account!</string>
+    <string name="ok">log-in</string>
+    <string name="output">OUTPUT</string>
+    <string name="input">INPUT</string>
+    <string name="sending_funds">sending ether ...</string>
+    <string name="database_error">error retrieving user data</string>
+    <string name="user_unavaliable">User is not available</string>
+    <string name="response_empty">Response is empty</string>
+    <string name="receipient_email">receipient email</string>
 </resources>

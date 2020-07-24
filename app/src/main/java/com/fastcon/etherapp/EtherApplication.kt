@@ -34,28 +34,13 @@ class EtherApplication : Application() {
         OkHttpClient.Builder()
             .addNetworkInterceptor(StethoInterceptor())
             .build()
-        /* if (LeakCanary.isInAnalyzerProcess(this)) {
-             return
-         }
-         LeakCanary.install(this)*/
     }
 
     private fun baseSecurity() {
-        try {
-            // Google Play will install latest OpenSSL
+             //Google Play will install latest OpenSSL
             ProviderInstaller.installIfNeeded(applicationContext)
             val sslContext: SSLContext = SSLContext.getDefault()
-//            sslContext.init(null, null, null)
             sslContext.createSSLEngine()
-        } catch (e: GooglePlayServicesRepairableException) {
-            e.printStackTrace()
-        } catch (e: GooglePlayServicesNotAvailableException) {
-            e.printStackTrace()
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        } catch (e: KeyManagementException) {
-            e.printStackTrace()
-        }
     }
 
     private fun setupBouncyCastle() {

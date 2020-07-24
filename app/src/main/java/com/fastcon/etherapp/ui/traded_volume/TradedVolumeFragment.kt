@@ -19,15 +19,19 @@ import com.fastcon.etherapp.base.ItemClickListener
 import com.fastcon.etherapp.data.local.PrefUtils
 import com.fastcon.etherapp.data.remote.entity.TradedVolumeEntity
 import com.fastcon.etherapp.ui.traded_volume_details.TradedVolumeDetails
-import com.fastcon.etherapp.util.Extensions
+import com.fastcon.etherapp.util.functions.KeyBoardUtils.Companion.editTextHideKeyBoard
+import com.fastcon.etherapp.util.views.FragmentUtils
 import kotlinx.android.synthetic.main.fragment_traded_history.*
+import kotlinx.android.synthetic.main.fragment_traded_history.currency_delete
 import timber.log.Timber
 
 
 class TradedVolumeFragment : BaseFragment(), ItemClickListener<TradedVolumeEntity> {
     private lateinit var adapter: TradedVolumeRecyclerViewAdapter
     private lateinit var tradedViewModel: TradedVolumeViewModel
+
     override fun getLayoutId(): Int = R.layout.fragment_traded_history
+
     override fun initData() {
 
 
@@ -55,11 +59,16 @@ class TradedVolumeFragment : BaseFragment(), ItemClickListener<TradedVolumeEntit
     }
 
     override fun initEvent() {
+
+        history_progress_layout.visibility = View.VISIBLE
         tradedViewModel.getTradedHistory()
         tradedViewModel.tVolumeMutableLiveData.observe(this, Observer { tradedData ->
-            //adapter.clearAll()
+
+
             PrefUtils.saveTradedList(tradedData)
             adapter.setData(tradedData)
+            history_progress_layout.visibility = View.GONE
+
             search_traded_history.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     charSequence: CharSequence,
@@ -126,7 +135,7 @@ class TradedVolumeFragment : BaseFragment(), ItemClickListener<TradedVolumeEntit
         return object : OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                Extensions.hideKeyBoard(activity, searchBox)
+                editTextHideKeyBoard(activity, searchBox)
             }
         }
     }
