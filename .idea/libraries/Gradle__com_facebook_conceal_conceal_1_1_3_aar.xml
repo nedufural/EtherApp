@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.facebook.conceal:conceal:1.1.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/862cd8adcafedb0d6dfe4f257a2133fa/jetified-conceal-1.1.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/862cd8adcafedb0d6dfe4f257a2133fa/jetified-conceal-1.1.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8b8c4fef9219650baaf2b7467bf82372/jetified-conceal-1.1.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8b8c4fef9219650baaf2b7467bf82372/jetified-conceal-1.1.3/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

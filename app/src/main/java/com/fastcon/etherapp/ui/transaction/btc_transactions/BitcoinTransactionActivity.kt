@@ -55,7 +55,7 @@ class BitcoinTransactionActivity : BaseActivity<BitcoinActivityBinding>(),
     }
 
     override fun initEvent() {
-        transferViewModel.getBitcoinTransactionHistory(Commons.btcTransactionsUrl)
+        transferViewModel.getBitcoinTransactionHistory(Commons.btcTransactionsUrl+PrefUtils.getBitcoinAddress()+"?format=json")
         transferViewModel.getBitcoinTxHistoryMutableLiveData()?.observe(this, Observer { list ->
             adapterBtc.setData(list)
             clearSearchBox()

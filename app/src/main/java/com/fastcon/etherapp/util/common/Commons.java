@@ -18,7 +18,7 @@ public class Commons {
     public static final String Base_Url = "https://api.coincap.io/";
     public static final String API_Key = "6FNCDKF4VQYQ4FH4NKZF6Z5PKRKXJC15ZB";
     public static final String etherTransactionsUrl = "http://api.etherscan.io/api?module=account&action=txlist&address=";
-    public static final String btcTransactionsUrl = "https://blockchain.info/address/3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy?format=json";
+    public static final String btcTransactionsUrl = "https://blockchain.info/address/";
     public static final String Notification_Base_Url = "https://fcm.googleapis.com";
     public static final String bitcoin_balance = "https://sochain.com/api/v2/get_address_balance/BTC/";
     public static final String TEST_NET = "https://mainnet.infura.io/v3/b6a2befbf40043a5b25bde109d3037ea";

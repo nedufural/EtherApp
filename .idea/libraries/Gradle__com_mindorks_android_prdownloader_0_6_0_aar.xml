@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.mindorks.android:prdownloader:0.6.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/16d5299346cdacc9a88515df55703331/jetified-prdownloader-0.6.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/16d5299346cdacc9a88515df55703331/jetified-prdownloader-0.6.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c5de6367d869e9842cee7d620476a270/jetified-prdownloader-0.6.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c5de6367d869e9842cee7d620476a270/jetified-prdownloader-0.6.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mindorks.android/prdownloader/0.6.0/bc25c37079e472ec27683efb19c9850d2ff3d231/prdownloader-0.6.0-javadoc.jar!/" />
