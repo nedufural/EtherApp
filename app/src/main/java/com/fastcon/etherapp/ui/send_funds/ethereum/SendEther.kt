@@ -20,7 +20,7 @@ import com.fastcon.etherapp.notification.NotificationData
 import com.fastcon.etherapp.notification.PushNotification
 import com.fastcon.etherapp.ui.dialogs.SendingFundsProgress
 import com.fastcon.etherapp.ui.profile.ProfileActivity
-import com.fastcon.etherapp.ui.send_funds.FundSent.Companion.sendNotification
+import com.fastcon.etherapp.ui.send_funds.FundSentNotification.Companion.sendNotification
 import com.fastcon.etherapp.util.common.Commons
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -59,7 +59,8 @@ class SendEther : BaseActivity<ActivitySendEtherBinding>() {
         declareViews()
         firebaseMessagingTopicDeclaration()
 
-        myRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://etherapp-15902.firebaseio.com/Users").child(
+        myRef = FirebaseDatabase.getInstance()
+            .getReferenceFromUrl("https://etherapp-15902.firebaseio.com/Users").child(
             Commons.removeSpecialCharacter(PrefUtils.getEmail())
         )
 
@@ -84,11 +85,11 @@ class SendEther : BaseActivity<ActivitySendEtherBinding>() {
 
     private fun extractDetailsOfFundsToSend(button: Button) {
         button.setOnClickListener {
-            sendFundProgressShow(fm)
+
             val etherTo = to.text.toString()
             etherAmount = amount.text.toString()
             receiverEmailText = receiverEmail.text.toString()
-            if (etherTo == "" || etherAmount == "" || receiverEmailText == ""){
+            if (etherTo == "" || etherAmount == "" || receiverEmailText == "") {
                 Toasty.custom(
                     FacebookSdk.getApplicationContext(),
                     "Complete all fields!!!",
@@ -98,11 +99,12 @@ class SendEther : BaseActivity<ActivitySendEtherBinding>() {
                     true,
                     true
                 ).show()
-            }
-            else{
+            } else {
+                sendFundProgressShow(fm)
                 PrefUtils.saveReceiverEmail(receiverEmailText)
                 sendEtherViewModel.RetrieveReceiversToken(myRef)
-            sendEtherOnMainThread(etherTo, etherAmount)}
+                sendEtherOnMainThread(etherTo, etherAmount)
+            }
         }
     }
 
@@ -123,13 +125,15 @@ class SendEther : BaseActivity<ActivitySendEtherBinding>() {
 
     private fun setReceiptDetailsToTextFields(transactionReceipt: Optional<TransactionReceipt>) {
         makeReceiptVisible()
-        ether_tx_receipt_c_gas_used.text = String.format(transactionReceipt.get().cumulativeGasUsed.toString())
+        ether_tx_receipt_c_gas_used.text =
+            String.format(transactionReceipt.get().cumulativeGasUsed.toString())
         ether_tx_receipt_hash.text = transactionReceipt.get().blockHash
         ether_tx_receipt_to.text = transactionReceipt.get().to
         ether_tx_receipt_amount.text = etherAmount
         ether_tx_receipt_from.text = transactionReceipt.get().from
         ether_tx_receipt_gas_used.text = String.format(transactionReceipt.get().gasUsed.toString())
-        ether_tx_receipt_tx_index.text = String.format(transactionReceipt.get().transactionIndex.toString())
+        ether_tx_receipt_tx_index.text =
+            String.format(transactionReceipt.get().transactionIndex.toString())
     }
 
     private fun makeReceiptVisible() {
