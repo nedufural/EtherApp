@@ -214,4 +214,14 @@ object PrefUtils {
     fun clearEnableBio() {
         Hawk.delete("enable_bio")
     }
+
+    fun setPassword(psw: String) {
+        Hawk.put("psw",psw)
+    }
+    fun getPassword():String {
+       return Hawk.get("psw","default")
+    }
+    fun clearPassword() {
+        Hawk.delete("psw")
+    }
 }

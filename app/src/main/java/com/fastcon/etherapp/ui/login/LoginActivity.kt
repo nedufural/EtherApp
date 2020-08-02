@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.facebook.FacebookSdk
@@ -40,8 +41,8 @@ class LoginActivity : AppCompatActivity() {
         loginModelViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         animateView()
-        email.editText?.setText("james@gmail.com")
-        password.editText?.setText("Abc@123#")
+        email.editText?.setText(PrefUtils.getEmail())
+        password.editText?.setText(PrefUtils.getPassword())
         loginButtonEvent(submit)
         registerButtonEvent(register)
         clearAllSharedPreferences()
@@ -51,14 +52,35 @@ class LoginActivity : AppCompatActivity() {
         val biometricManager = BiometricManager.from(this)
         var bioMetricExist = checkBioMetricFeatureExists(biometricManager)
         if (bioMetricExist) {
-            if (PrefUtils.getEnableBio() == true) {
-                enable_bio_id.setChecked(true)
-                AuthManager.bioAuth(this)
+            if (PrefUtils.getEnableBio()) {
+                enable_bio_id.isChecked = true
+                bioAuth(this)
+            } else {
+                enable_bio_id.isChecked = false
+                //todo clear use and psw
             }
         }
         enable_bio_id.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && bioMetricExist) {
-                PrefUtils.setEnableBio(true)
+
+                if (email.editText?.text.toString().trim().isEmpty() ||
+                    password.editText?.text.toString().trim().isEmpty()
+                ) {
+                    PrefUtils.setEnableBio(false)
+                    Toasty.custom(
+                        applicationContext,
+                        "Fill-in your login credentials first!",
+                        R.drawable.ic_baseline_warning_24,
+                        R.color.colorPrimaryDark,
+                        5,
+                        true,
+                        true
+                    ).show()
+                } else {
+                    PrefUtils.setEmail(email.editText?.text.toString().trim())
+                    PrefUtils.setPassword(password.editText?.text.toString().trim())
+                    PrefUtils.setEnableBio(true)
+                }
             } else if (isChecked && !bioMetricExist) {
                 Toasty.custom(
                     applicationContext,
@@ -205,6 +227,46 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    fun bioAuth(fragment: FragmentActivity) {
+        val executor: Executor = ContextCompat.getMainExecutor(FacebookSdk.getApplicationContext())
+        val biometricPrompt = BiometricPrompt(fragment, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+                    val intent = Intent(fragment, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    fragment.startActivity(intent)
+                    PrefUtils.setEnableBio(false)
+                }
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    loginAuthenticationMethod(FirebaseAuth.getInstance())
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(
+                        FacebookSdk.getApplicationContext(), "Authentication failed",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            })
+
+        val promptInfo: BiometricPrompt.PromptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Login to EtherApp via biometric")
+            .setSubtitle("Log in using your biometric credential")
+            //.setNegativeButtonText("Login via username and password.")
+            .setDeviceCredentialAllowed(true)
+            .build()
+        biometricPrompt.authenticate(promptInfo)
+    }
 
     override fun onPause() {
         super.onPause()
