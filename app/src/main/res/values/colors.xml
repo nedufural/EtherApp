@@ -9,4 +9,5 @@
     <color name="hash">#706E6E</color>
     <color name="blue">#0000FF</color>
     <color name="white_transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

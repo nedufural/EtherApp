@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <PreferenceCategory
+        android:title="Settings">
+
+        <SwitchPreferenceCompat
+            android:key="bio_setting"
+            android:title="Enable Bio-metric Login"
+            android:summary="Enable Bio-metric Login"/>
+        <SwitchPreferenceCompat
+            android:key="save_login_details"
+            android:title="Enable Bio-metric Login"
+            android:summary="save Login credentials"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -7,9 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
             tools:context=".ui.profile.ProfileActivity">
 
             <include
@@ -20,198 +22,304 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:background="@drawable/card_design_ether"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wallet"
+                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/candara"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="28sp"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/candara"/>
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btc_card"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/card_design_bitcoin"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/sign_out"
+                android:layout_height="100dp"
+                android:layout_margin="16dp"
+                android:background="#005b96"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar_activity"
-                app:layout_constraintVertical_bias="0.056">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:id="@+id/imageView2"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="16dp"
-                    android:src="@drawable/btc_icon" />
+                    android:src="@drawable/btc_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/profile_user_name_btc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:fontFamily="@font/source_code_pro_black"
+                    android:fontFamily="@font/candara"
+                    android:textStyle="bold"
                     android:padding="8dp"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.25" />
 
                 <TextView
                     android:id="@+id/profile_bitcoin_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:fontFamily="@font/source_code_pro_black"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/candara"
+                    android:textStyle="bold"
                     android:padding="8dp"
+                    android:textSize="11sp"
                     android:textColor="#FFFFFF"
-                    android:textSize="13sp" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
                 <TextView
                     android:id="@+id/profile_bitcoin_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:fontFamily="@font/source_code_pro_black"
+                    android:layout_marginBottom="48dp"
+                    android:fontFamily="@font/candara"
+                    android:textStyle="bold"
                     android:padding="8dp"
                     android:textColor="#FFFFFF"
-                    android:textSize="13sp" />
-            </LinearLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.105"
+                    app:layout_constraintStart_toEndOf="@+id/profile_user_name_btc" />
 
-            <LinearLayout
-                android:id="@+id/eth_card"
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/card_design_ether"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/sign_out"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btc_card"
-                app:layout_constraintVertical_bias="0.0">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/ether_icon" />
-
-                <TextView
-                    android:id="@+id/profile_user_name_ether"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:fontFamily="@font/source_code_pro_black"
-                    android:padding="8dp"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/profile_ethereum_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:fontFamily="@font/source_code_pro_black"
-                    android:padding="8dp"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/profile_ethereum_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:fontFamily="@font/source_code_pro_black"
-                    android:padding="8dp"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/funds_tx"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/sign_out"
+                android:layout_height="100dp"
+                android:layout_margin="16dp"
+                android:background="#005b96"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eth_card">
 
                 <ImageView
-                    android:id="@+id/send_funds_img"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/ic_send" />
+                    android:id="@+id/imageView"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ether_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/send_funds"
+                    android:id="@+id/profile_user_name_ether"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="send funds" />
-
-                <ImageView
-                    android:id="@+id/receive_funds_img"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/ic_money" />
-
+                    android:fontFamily="@font/candara"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+                    android:text="Name"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.25" />
 
                 <TextView
-                    android:id="@+id/receive_funds"
+                    android:id="@+id/profile_ethereum_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:src="@drawable/btc_history"
-                    android:text="receive funds" />
-            </LinearLayout>
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/candara"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+                    android:textSize="11sp"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imageView" />
+
+                <TextView
+                    android:id="@+id/profile_ethereum_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="48dp"
+                    android:fontFamily="@font/candara"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.105"
+                    app:layout_constraintStart_toEndOf="@+id/profile_user_name_ether" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="48dp"
+                    android:fontFamily="@font/candara"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+
+                    android:textColor="#FFFFFF"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:id="@+id/funds_history"
-                android:layout_width="wrap_content"
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/sign_out"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/funds_tx">
+                app:layout_constraintVertical_bias="0.34">
 
-                <ImageView
-                    android:id="@+id/bitcoin_tx_img"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                <LinearLayout
+                    android:id="@+id/send_fund_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     android:layout_margin="8dp"
-                    android:src="@drawable/btc_history" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/eth_card">
 
-                <TextView
-                    android:id="@+id/bitcoin_tx"
+                    <ImageView
+                        android:id="@+id/send_funds_img"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_send" />
+
+                    <TextView
+                        android:id="@+id/send_funds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="send funds" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/funds_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/eth_card">
+
+
+                    <ImageView
+                        android:id="@+id/receive_funds_img"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_money" />
+
+
+                    <TextView
+                        android:id="@+id/receive_funds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:src="@drawable/btc_history"
+                        android:text="receive funds" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/funds_history"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/funds_tx">
+
+                    <ImageView
+                        android:id="@+id/bitcoin_tx_img"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/btc_history" />
+
+                    <TextView
+                        android:id="@+id/bitcoin_tx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="bitcoin tx" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ether_layout_tx"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="bitcoin tx" />
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/ether_tx_img"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/ether_history" />
+                    <ImageView
+                        android:id="@+id/ether_tx_img"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ether_history" />
 
-                <TextView
-                    android:id="@+id/ether_tx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="ether tx" />
+                    <TextView
+                        android:id="@+id/ether_tx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ether tx" />
+                </LinearLayout>
+
+
             </LinearLayout>
-
 
             <com.github.angads25.toggle.LabeledSwitch
                 android:id="@+id/auth_switch"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="24dp"
                 android:textSize="14sp"
-                app:colorBorder="#00c4a6"
-                app:colorOn="#00c4a6"
+                app:colorBorder="@color/colorPrimary"
+                app:colorOn="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/funds_history"
-                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintVertical_bias="0.058"
                 app:on="true"
                 app:textOff="sign out"
                 app:textOn="signed in" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </ScrollView>
 </layout>

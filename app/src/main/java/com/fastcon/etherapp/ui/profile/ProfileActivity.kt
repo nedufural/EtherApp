@@ -15,17 +15,20 @@ import com.fastcon.etherapp.ui.dialogs.ReceiveFundsFragment
 import com.fastcon.etherapp.ui.dialogs.SendFundsFragment
 import com.fastcon.etherapp.ui.transaction.btc_transactions.BitcoinTransactionActivity
 import com.fastcon.etherapp.ui.transaction.ether_transactions.EthereumTransactionActivity
+import com.fastcon.etherapp.util.LogOutTimerTask
 import com.fastcon.etherapp.util.common.Commons.bitcoin_balance
 import com.github.angads25.toggle.interfaces.OnToggledListener
 import com.google.firebase.iid.FirebaseInstanceId
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.toolbar_activity.*
 import timber.log.Timber
+import java.util.*
 
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
 
-
-
+    private var isEnabled: Boolean = false
+    private var timer: Timer? = null
     override fun getLayoutId(): Int = R.layout.activity_profile
 
     override fun initData() {
@@ -38,16 +41,17 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
 
         showToast(applicationContext, " $to $value ")
 
-        dataBinding?.bitcoinTx?.setOnClickListener(View.OnClickListener {
+        dataBinding?.fundsHistory?.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, BitcoinTransactionActivity::class.java))
         })
-        dataBinding?.etherTx?.setOnClickListener(View.OnClickListener {
+        dataBinding?.etherLayoutTx?.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, EthereumTransactionActivity::class.java))
         })
 
         dataBinding?.authSwitch?.setOnToggledListener(OnToggledListener { _, isOn ->
             if (!isOn) {
                 AuthManager.logout(applicationContext)
+
             }
         })
         dataBinding?.profileBitcoinAddress?.text = PrefUtils.getBitcoinAddress()
@@ -60,6 +64,25 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
 
         val profileViewModel: ProfileViewModel =
             ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+
+
+        val usdConversionViewModel: UsdConversionViewModel =
+            ViewModelProviders.of(this).get(UsdConversionViewModel::class.java)
+
+
+
+        usdConversionViewModel.getConversionRates("ethereum")
+        usdConversionViewModel.conversionResult?.observe(this, Observer { rates ->
+            println("ether ${rates.data.rateUsd}")
+        })
+
+        usdConversionViewModel.getConversionRates("bitcoin")
+        usdConversionViewModel.conversionResult?.observe(this, Observer { rates ->
+            println("bitcoin ${rates.data.rateUsd}")
+        })
+
+
+
         AsyncTask.execute {
             profileViewModel.getETHBalance(PrefUtils.getEtherAddress())
         }
@@ -67,7 +90,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
             profileViewModel.uploadUserToken()
         }
         profileViewModel.ethBalance?.observe(this, Observer { ethBalance ->
-            dataBinding?.profileEthereumBalance?.text = ethBalance.toString()
+            dataBinding?.profileEthereumBalance?.text = "ETH  ${ethBalance.toString()}"
             println(ethBalance)
         })
 
@@ -75,7 +98,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
             profileViewModel.getBitcoinBalance(bitcoin_balance + PrefUtils.getBitcoinAddress())
         }
         profileViewModel._bitcoinBalanceLiveData.observe(this, Observer { btcBalance ->
-            dataBinding?.profileBitcoinBalance?.text = btcBalance.toString()
+            dataBinding?.profileBitcoinBalance?.text = "BTC  ${btcBalance.toString()}"
             println(btcBalance)
         })
 
@@ -83,14 +106,15 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
             PrefUtils.saveDeviceToken(it.token)
         }
 
-        dataBinding?.receiveFunds?.setOnClickListener { v ->
+        dataBinding?.fundsTx?.setOnClickListener { v ->
 
             showAddressDialog()
         }
 
-        dataBinding?.sendFunds?.setOnClickListener { v ->
+        dataBinding?.sendFundButton?.setOnClickListener { v ->
             sendFundDialog()
         }
+
 
     }
 
@@ -106,6 +130,23 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>() {
         val fm: FragmentManager = supportFragmentManager
         val sendFundsFragment: SendFundsFragment = SendFundsFragment().newInstance("Send Funds")
         sendFundsFragment.show(fm, "fragment_send_funds")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timer = Timer()
+        Timber.i("Invoking logout timer")
+        val logoutTimeTask = LogOutTimerTask()
+        timer!!.schedule(logoutTimeTask, 300000) //auto logout in 5 minutes
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (timer != null) {
+            timer!!.cancel()
+            Timber.i("cancel timer")
+            timer = null
+        }
     }
 
 }

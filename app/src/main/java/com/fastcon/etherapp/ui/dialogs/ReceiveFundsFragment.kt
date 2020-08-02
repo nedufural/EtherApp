@@ -1,24 +1,21 @@
 package com.fastcon.etherapp.ui.dialogs
 
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
 import com.fastcon.etherapp.R
 import com.fastcon.etherapp.base.BaseDialog
 import com.fastcon.etherapp.data.local.PrefUtils
-import com.fastcon.etherapp.util.common.Commons
+import com.fastcon.etherapp.util.views.FragmentUtils
+import kotlinx.android.synthetic.main.fragment_receive_funds.*
+import kotlinx.android.synthetic.main.fragment_send_funds.send_fund_close_button
 
 
 class ReceiveFundsFragment : BaseDialog() {
-
-    private var mImageEthAddress: ImageView? = null
-    private var mImageBtcAddress: ImageView? = null
 
 
     fun newInstance(title: String?): ReceiveFundsFragment {
         val frag = ReceiveFundsFragment()
         val args = Bundle()
-        args.putString("title", title)
+        args.putString("fragment_send_funds", title)
         frag.arguments = args
         return frag
     }
@@ -28,9 +25,23 @@ class ReceiveFundsFragment : BaseDialog() {
     }
 
     override fun initData() {
-        mImageBtcAddress = view?.findViewById<View>(R.id.btcImgAddress) as ImageView
-        mImageEthAddress = view?.findViewById<View>(R.id.ethImgAddress) as ImageView
-        mImageEthAddress!!.setImageBitmap(Commons.encodeAsBitmap(PrefUtils.getEtherAddress()))
-        mImageBtcAddress!!.setImageBitmap(Commons.encodeAsBitmap(PrefUtils.getBitcoinAddress()))
+        val bottomSheet = QrCodeAddressImage()
+        receive_btc.setOnClickListener {
+            FragmentUtils.popBackStack(activity?.supportFragmentManager!!, this)
+            bottomSheet.show(activity?.supportFragmentManager!!, "exampleBottomSheet")
+            PrefUtils.setCurrencyDisplayID(1);
+        }
+        receive_eth.setOnClickListener {
+            FragmentUtils.popBackStack(activity?.supportFragmentManager!!, this)
+            bottomSheet.show(activity?.supportFragmentManager!!, "exampleBottomSheet")
+            PrefUtils.setCurrencyDisplayID(2);
+        }
+        send_fund_close_button.setOnClickListener {
+            FragmentUtils.popBackStack(activity?.supportFragmentManager!!, this)
+
+
+        }
+
+
     }
 }

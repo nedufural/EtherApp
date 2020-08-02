@@ -1,31 +1,37 @@
 package com.fastcon.etherapp.ui.login
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.facebook.FacebookSdk
 import com.fastcon.etherapp.R
 import com.fastcon.etherapp.data.local.PrefUtils
+import com.fastcon.etherapp.service.AuthManager
 import com.fastcon.etherapp.service.AuthenticationModel
 import com.fastcon.etherapp.ui.home.HomeActivity
 import com.fastcon.etherapp.ui.registration.RegistrationActivity
 import com.fastcon.etherapp.util.functions.KeyBoardUtils.Companion.textLayoutHideKeyBoard
 import com.fastcon.etherapp.util.functions.NetworkUtil.Companion.checkInternet
-import com.fastcon.etherapp.util.views.FragmentUtils
 import com.google.firebase.auth.FirebaseAuth
-
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_login.*
 import timber.log.Timber
+import java.util.concurrent.Executor
 
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginModelViewModel: LoginViewModel
-
+    private var isEnabled: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +40,58 @@ class LoginActivity : AppCompatActivity() {
         loginModelViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         animateView()
-        email.editText?.setText("agwu@gmail.com")
+        email.editText?.setText("james@gmail.com")
         password.editText?.setText("Abc@123#")
         loginButtonEvent(submit)
         registerButtonEvent(register)
         clearAllSharedPreferences()
+        bioAnimation()
+
+
+        val biometricManager = BiometricManager.from(this)
+        var bioMetricExist = checkBioMetricFeatureExists(biometricManager)
+        if (bioMetricExist) {
+            if (PrefUtils.getEnableBio() == true) {
+                enable_bio_id.setChecked(true)
+                AuthManager.bioAuth(this)
+            }
+        }
+        enable_bio_id.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked && bioMetricExist) {
+                PrefUtils.setEnableBio(true)
+            } else if (isChecked && !bioMetricExist) {
+                Toasty.custom(
+                    applicationContext,
+                    "Bio-metric not supported by your device!",
+                    R.drawable.ic_baseline_warning_24,
+                    R.color.colorPrimaryDark,
+                    5,
+                    true,
+                    true
+                ).show()
+                PrefUtils.setEnableBio(false)
+                enable_bio_id.isChecked = false
+            }
+        }
+    }
+
+
+    private fun checkBioMetricFeatureExists(biometricManager: BiometricManager): Boolean {
+        when (biometricManager.canAuthenticate()) {
+            BiometricManager.BIOMETRIC_SUCCESS ->
+                // println( "App can authenticate using biometrics.")
+                return true
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
+                return false
+            //println("No biometric features available on this device.")
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
+                return false
+            // println("Biometric features are currently unavailable.")
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
+                return false
+            //println("The user hasn't associated any biometric credentials with their account.")
+        }
+        return true
     }
 
     private fun registerButtonEvent(button: Button) {
@@ -111,6 +164,12 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun bioAnimation() {
+        bio_image.setBackgroundResource(R.drawable.animate_biometric)
+        val wifiAnimation = bio_image.background as AnimationDrawable
+        wifiAnimation.start()
+    }
+
     private fun confirmInput() {
         val loginModel = AuthenticationModel
         val mAuth = FirebaseAuth.getInstance()
@@ -145,6 +204,7 @@ class LoginActivity : AppCompatActivity() {
             error_alert.visibility = View.VISIBLE
         })
     }
+
 
     override fun onPause() {
         super.onPause()

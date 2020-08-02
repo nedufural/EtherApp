@@ -77,8 +77,8 @@ class RegistrationActivity : BaseActivity<ActivityRegistrationBinding>() {
                    android.os.Handler().postDelayed({
                        regViewModel.emailPasswordRegistration(
                            this,
-                           username,
-                           regEmail,
+                           username.toLowerCase(),
+                           regEmail.toLowerCase(),
                            regPassword,
                            PrefUtils.getEthKey(),
                            PrefUtils.getEtherAddress(),
@@ -88,6 +88,7 @@ class RegistrationActivity : BaseActivity<ActivityRegistrationBinding>() {
                    },3000)
 
                 } else {
+                    progress_layout.visibility = View.GONE
                     showToast(this, getString(R.string.register_failed))
                 }
             }

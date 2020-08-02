@@ -14,6 +14,7 @@ import com.fastcon.etherapp.exception.NetworkExceptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 
 class TransferViewModel : ViewModel() {
@@ -72,16 +73,19 @@ class TransferViewModel : ViewModel() {
                 call: Call<TransferResponse>,
                 response: Response<TransferResponse>
             ) {
+
                 val responseCode = NetworkExceptions.getException(response.code())
                 if (response.code() == 200) {
-                    if (response.body() != null) {
+
+                    if (response.body() != null && response.body()?.result?.size!! > 0) {
                         addEtherResponseToList(response)
-                    } else {
-                        tnxErrorMsg?.value =
-                            getApplicationContext().getString(R.string.response_empty)
+                    }
+                    else {
+                        println(response.body()?.result?.size)
+                        transferHistoryErrorMsg?.value = getApplicationContext().getString(R.string.response_empty)
                     }
                 } else {
-                    tnxErrorMsg?.value = responseCode
+                    transferHistoryErrorMsg?.value = responseCode
                 }
             }
         })
@@ -100,7 +104,7 @@ class TransferViewModel : ViewModel() {
             ) {
                 val responseCode = NetworkExceptions.getException(response.code())
                 if (response.code() == 200) {
-                    if (response.body() != null) {
+                    if (response.body() != null && response.body()!!.txs.isNotEmpty()) {
                         addBTCResponseToList(response)
                         bitcoinTxHistoryMutableLiveData?.value = dataBitcoin
                     } else {

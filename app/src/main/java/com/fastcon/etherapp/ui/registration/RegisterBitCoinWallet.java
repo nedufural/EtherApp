@@ -1,3 +1,4 @@
+/*
 package com.fastcon.etherapp.ui.registration;
 
 import org.bitcoinj.core.ECKey;
@@ -46,3 +47,4 @@ public class RegisterBitCoinWallet {
     }
 }
 
+*/

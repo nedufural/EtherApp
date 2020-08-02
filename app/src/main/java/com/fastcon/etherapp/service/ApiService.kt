@@ -25,6 +25,9 @@ interface ApiService {
     @GET("v2/rates")
     fun getExchangeRates(): Call<RateResponse>
 
+    @GET("v2/rates/{id}")
+    fun getConversionRates(@Path("id")id:String): Call<ConversionResponse>
+
     @GET("v2/assets")
     fun getTradedHistory(): Call<TradedVolumeResponse>
 
@@ -43,10 +46,7 @@ interface ApiService {
 
     @GET
     fun getBitcoinTxHistory(@Url url: String): Call<BitcoinResponse>
-    //get bitcoin balance
-    /**
-     * https://sochain.com/api/v2/get_address_balance/BITCOIN/DFundmtrigzA6E25Swr2pRe4Eb79bGP8G1
-     * */
+
     @GET
     fun getBitcoinBalance(@Url url: String): Call<BitcoinBalanceResponse>
 

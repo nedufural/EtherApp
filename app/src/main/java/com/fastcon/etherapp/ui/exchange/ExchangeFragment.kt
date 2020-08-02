@@ -133,7 +133,7 @@ class ExchangeFragment : BaseFragment(), ItemClickListener<ExchangeRateEntity> {
             }
             message(
                 text = "${data?.symbol}  ${String.format(
-                            "%.4f",
+                            "%.6f",
                             exchangeRateReverseCalculation(exchange)
                         )} = 1 USD"
             )

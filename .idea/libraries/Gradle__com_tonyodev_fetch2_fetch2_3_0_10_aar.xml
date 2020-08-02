@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Gradle: com.tonyodev.fetch2:fetch2:3.0.10@aar">
     <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/df64fb300dfbfc47b36d84d3ecbace77/jetified-fetch2-3.0.10/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/df64fb300dfbfc47b36d84d3ecbace77/jetified-fetch2-3.0.10/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/df64fb300dfbfc47b36d84d3ecbace77/jetified-fetch2-3.0.10/res" />
     </CLASSES>

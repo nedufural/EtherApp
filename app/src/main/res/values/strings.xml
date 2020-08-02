@@ -27,4 +27,9 @@
     <string name="user_unavaliable">User is not available</string>
     <string name="response_empty">Response is empty</string>
     <string name="receipient_email">receipient email</string>
+    <string name="receive_btc">receive bitcoin</string>
+    <string name="receive_ether">receive ether</string>
+    <string name="no_transaction_found">No Transactions Found</string>
+    <string name="wallet">Wallet</string>
+    <string name="enable_bio">enable bio-metric login</string>
 </resources>

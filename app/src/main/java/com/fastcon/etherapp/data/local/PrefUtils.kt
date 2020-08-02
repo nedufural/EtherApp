@@ -8,6 +8,7 @@ import com.fastcon.etherapp.data.remote.model.BitcoinResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.orhanobut.hawk.Hawk
+import org.web3j.abi.datatypes.Bool
 import java.lang.reflect.Type
 import java.text.SimpleDateFormat
 import java.util.*
@@ -110,7 +111,7 @@ object PrefUtils {
     fun saveBtcAddress(btcAddress: String?) {
         Hawk.put("bitcoinAddress", btcAddress)
     }
-
+    @JvmStatic
     fun getBitcoinAddress(): String {
         return Hawk.get("bitcoinAddress", "default")
     }
@@ -193,5 +194,24 @@ object PrefUtils {
 
     fun saveReceiverEmail(receiverEmailText: String) {
         Hawk.put("receiver_email",receiverEmailText)
+    }
+    @JvmStatic
+    fun setCurrencyDisplayID(i: Int) {
+        Hawk.put("currency_display_id",i);
+    }
+    @JvmStatic
+    fun getCurrencyDisplayID():Int {
+        return Hawk.get("currency_display_id");
+    }
+
+    fun setEnableBio(enable: Boolean){
+        Hawk.put("enable_bio",enable);
+    }
+
+    fun getEnableBio():Boolean{
+        return Hawk.get("enable_bio",false);
+    }
+    fun clearEnableBio() {
+        Hawk.delete("enable_bio")
     }
 }

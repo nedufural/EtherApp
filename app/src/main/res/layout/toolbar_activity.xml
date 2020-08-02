@@ -14,7 +14,7 @@
         android:layout_margin="15dp"
         android:drawableEnd="@drawable/ic_account_circle_black_24dp"
         android:drawablePadding="10dp"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/candara"
         android:textColor="#FFF" />
 
 </androidx.appcompat.widget.Toolbar>

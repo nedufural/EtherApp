@@ -27,10 +27,6 @@ import java.math.BigDecimal
 
 
 class ProfileViewModel : ViewModel() {
-    /**
-     * https://kauri.io/manage-an-ethereum-account-with-java-and-web3j/925d923e12c543da9a0a3e617be963b4/a
-     * */
-
 
     val _bitcoinBalanceLiveData: MutableLiveData<String> = MutableLiveData()
     val bitcoinBalanceErrorMsg: MutableLiveData<String> = MutableLiveData()
@@ -40,7 +36,7 @@ class ProfileViewModel : ViewModel() {
     var ethBalance: MutableLiveData<BigDecimal?>? = MutableLiveData()
 
     var web3: Web3j? =
-        Web3j.build(HttpService("https://rinkeby.infura.io/v3/b6a2befbf40043a5b25bde109d3037ea"))
+        Web3j.build(HttpService("https://mainnet.infura.io/v3/b6a2befbf40043a5b25bde109d3037ea"))
 
     fun getETHBalance(ethAccount: String) {
         val balanceWei: EthGetBalance = web3?.ethGetBalance(

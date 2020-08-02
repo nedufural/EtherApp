@@ -158,7 +158,5 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             }
         })
     }
-    //splash screen the right way
-    //https://medium.com/@ssaurel/create-a-splash-screen-on-android-the-right-way-93d6fb444857
-    //https://medium.com/koderlabs/viewmodel-with-viewmodelprovider-factory-the-creator-of-viewmodel-8fabfec1aa4f
+
 }

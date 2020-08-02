@@ -1,6 +1,11 @@
 package com.fastcon.etherapp.ui.login
 
+import android.app.Activity
+import android.hardware.biometrics.BiometricPrompt
+import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +19,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import timber.log.Timber
+import java.util.concurrent.Executor
 
 
 class LoginViewModel : ViewModel() {
@@ -38,7 +44,8 @@ class LoginViewModel : ViewModel() {
 
     fun authUser(mAuth: FirebaseAuth, email: String, password: String) {
         val user = mAuth.currentUser
-        mAuth.signInWithEmailAndPassword(email, password)
+
+        mAuth.signInWithEmailAndPassword(email.toLowerCase(), password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     loginMutableLiveData?.postValue(user?.email)
@@ -49,6 +56,5 @@ class LoginViewModel : ViewModel() {
                 }
             }
     }
-
 
 }

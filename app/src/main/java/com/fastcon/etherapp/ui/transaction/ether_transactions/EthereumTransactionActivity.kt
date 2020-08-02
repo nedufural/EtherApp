@@ -4,6 +4,7 @@ import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,17 +16,20 @@ import com.fastcon.etherapp.base.ItemClickListener
 import com.fastcon.etherapp.data.local.PrefUtils
 import com.fastcon.etherapp.data.remote.entity.EthereumTransactionEntity
 import com.fastcon.etherapp.databinding.EthereumActivityBinding
+import com.fastcon.etherapp.ui.dialogs.AlertErrorMessageDialog
 import com.fastcon.etherapp.ui.transaction.TransferViewModel
 import com.fastcon.etherapp.ui.transaction_details.EthereumTransactionDetails
 import com.fastcon.etherapp.util.common.Commons
+import kotlinx.android.synthetic.main.bitcoin_activity.*
 import kotlinx.android.synthetic.main.ethereum_activity.*
+import kotlinx.android.synthetic.main.ethereum_activity.currency_delete
 import kotlinx.android.synthetic.main.toolbar_activity.*
+import timber.log.Timber
 
 
 class EthereumTransactionActivity : BaseActivity<EthereumActivityBinding>(),
     ItemClickListener<EthereumTransactionEntity> {
 
-    private var userAccount = "0xd8f4cef03adb10d5f5bd11d1e912c67a9f5221d6"
     private lateinit var adapter: EthereumTransactionAdapter
     private lateinit var transferViewModel: TransferViewModel
 
@@ -51,12 +55,16 @@ class EthereumTransactionActivity : BaseActivity<EthereumActivityBinding>(),
 
     override fun initEvent() {
 
-        transferViewModel.getEthereumTransactionHistory("${Commons.etherTransactionsUrl}$userAccount&startblock=0&endblock=99999999&sort=asc&apikey=${Commons.API_Key}")
+        transferViewModel.getEthereumTransactionHistory("${Commons.etherTransactionsUrl}${PrefUtils.getEtherAddress()}&startblock=0&endblock=99999999&sort=asc&apikey=${Commons.API_Key}")
         transferViewModel.getEthereumTransactionHistory()?.observe(this, Observer { list ->
             adapter.setData(list)
 
             clearSearchBox()
             searchList(list, search_eth_tx_list)
+        })
+
+        transferViewModel.getTransferHistoryErrorMsg()?.observe(this, Observer {
+            showNoTransactionMsg()
         })
     }
 
@@ -64,6 +72,15 @@ class EthereumTransactionActivity : BaseActivity<EthereumActivityBinding>(),
         currency_delete.setOnClickListener {
             search_eth_tx_list.setText("")
         }
+    }
+
+
+    private fun showNoTransactionMsg() {
+        val fm: FragmentManager = supportFragmentManager
+        val alertErrorMessageDialog: AlertErrorMessageDialog =
+            AlertErrorMessageDialog().newInstance("Failed")
+        alertErrorMessageDialog.isCancelable = true
+        alertErrorMessageDialog.show(fm, "fragment_edit_name")
     }
 
     private fun searchList(list: ArrayList<EthereumTransactionEntity>, editText: EditText) {

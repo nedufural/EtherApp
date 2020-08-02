@@ -3,6 +3,7 @@ package com.fastcon.etherapp.ui.transaction.btc_transactions
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,6 +14,8 @@ import com.fastcon.etherapp.base.ItemClickListener
 import com.fastcon.etherapp.data.local.PrefUtils
 import com.fastcon.etherapp.data.remote.entity.BitcoinTXEntity
 import com.fastcon.etherapp.databinding.BitcoinActivityBinding
+import com.fastcon.etherapp.ui.dialogs.AlertErrorMessageDialog
+import com.fastcon.etherapp.ui.dialogs.RegisterSuccessDialog
 import com.fastcon.etherapp.ui.transaction.TransferViewModel
 import com.fastcon.etherapp.ui.transaction_details.BitcoinTransactionDetails
 import com.fastcon.etherapp.util.common.Commons
@@ -55,19 +58,29 @@ class BitcoinTransactionActivity : BaseActivity<BitcoinActivityBinding>(),
     }
 
     override fun initEvent() {
-        transferViewModel.getBitcoinTransactionHistory(Commons.btcTransactionsUrl+PrefUtils.getBitcoinAddress()+"?format=json")
+        transferViewModel.getBitcoinTransactionHistory(Commons.btcTransactionsUrl + PrefUtils.getBitcoinAddress() + "?format=json")
         transferViewModel.getBitcoinTxHistoryMutableLiveData()?.observe(this, Observer { list ->
             adapterBtc.setData(list)
             clearSearchBox()
             searchBTCTransaction(list)
         })
-
+        transferViewModel.getExchangeErrorMsg()?.observe(this, Observer { _ ->
+            showNoTransactionMsg()
+        })
     }
 
     private fun clearSearchBox() {
         currency_delete.setOnClickListener {
             search_btc_tx_list.setText("")
         }
+    }
+
+    private fun showNoTransactionMsg() {
+        val fm: FragmentManager = supportFragmentManager
+        val alertErrorMessageDialog: AlertErrorMessageDialog =
+            AlertErrorMessageDialog().newInstance("Failed")
+        alertErrorMessageDialog.isCancelable = true
+        alertErrorMessageDialog.show(fm, "fragment_edit_name")
     }
 
     private fun searchBTCTransaction(list: ArrayList<BitcoinTXEntity>) {
