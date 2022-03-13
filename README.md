@@ -3,13 +3,6 @@ The is a Block chain transaction app. The main functionalities are
 2. Sending and receving Ether(from Ethereum)
 3. Creating Bitcoin and Ethereum wallets.
 
-
-![screen1](https://github.com/nedufural/EtherApp/blob/master/2.jpg)
-</br>
-![screen2](https://github.com/nedufural/EtherApp/blob/master/3.jpg)
-</br>
-![screen3](https://github.com/nedufural/EtherApp/blob/master/4.jpg)
-</br>
+[![Watch the video](https://github.com/nedufural/EtherApp/blob/master/Screenshot%202022-03-13%20210953.png)](ttps://www.youtube.com/watch?v=916dNnzt6h8)
 
 
-[![Watch the video (https://github.com/nedufural/EtherApp/blob/master/2.jpg)](ttps://www.youtube.com/watch?v=916dNnzt6h8)
