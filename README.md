@@ -12,4 +12,4 @@ The is a Block chain transaction app. The main functionalities are
 </br>
 
 
-[![Watch the video](ttps://www.youtube.com/watch?v=916dNnzt6h8)
+[![Watch the video (https://github.com/nedufural/EtherApp/blob/master/2.jpg)](ttps://www.youtube.com/watch?v=916dNnzt6h8)
